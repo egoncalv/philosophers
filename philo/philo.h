@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:22:51 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/01/11 16:16:57 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:12:20 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-int	get_time_ms();
+int	get_time_ms(void);
+int	ft_atoi(const char *str);
+int	is_nbr(char	*argv);
+int	check_args(int argc, char **argv);
 
 #endif
