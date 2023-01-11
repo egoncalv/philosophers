@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:22:51 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/01/11 18:12:20 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:19:28 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,16 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+
+typedef struct s_info
+{
+	int	p_num;
+	int	f_num;
+	int	t_die;
+	int	t_eat;
+	int	t_sleep;
+	int	x_eat;
+}				t_info;
 
 int	get_time_ms(void);
 int	ft_atoi(const char *str);
