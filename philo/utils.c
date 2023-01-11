@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:33:26 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/01/11 18:14:57 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:28:02 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,15 @@ int	check_args(int argc, char **argv)
 		i++;
 	}
 	return (1);
+}
+
+void	set_info(t_info *info, char	**argv)
+{	
+	info->p_num = ft_atoi(argv[1]);
+	info->f_num = info->p_num;
+	info->t_die = ft_atoi(argv[2]);
+	info->t_eat = ft_atoi(argv[3]);
+	info->t_sleep = ft_atoi(argv[4]);
+	if (argv[5])
+		info->x_eat = ft_atoi(argv[5]);
 }
