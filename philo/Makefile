@@ -6,11 +6,13 @@
 #    By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 16:24:24 by egoncalv          #+#    #+#              #
-#    Updated: 2023/01/11 16:37:49 by egoncalv         ###   ########.fr        #
+#    Updated: 2023/01/12 23:43:49 by egoncalv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Werror -Wextra -g
+
+THREAD = -pthread -g
 
 NAME = philo
 
@@ -22,7 +24,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@gcc $(CFLAGS) $(OBJ) -o $(NAME)
+	@gcc $(CFLAGS) $(THREAD) $(OBJ) -o $(NAME)
 	@echo "Philosophers Compiled"
 
 %.o: %.c

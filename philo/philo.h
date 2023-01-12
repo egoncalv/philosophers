@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:22:51 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/01/11 18:22:06 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/12 23:40:15 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <stdio.h>
+# include <stdlib.h>
+# include <stdint.h>
 
 typedef struct s_info
 {
@@ -26,6 +28,12 @@ typedef struct s_info
 	int	t_sleep;
 	int	x_eat;
 }				t_info;
+
+typedef struct s_phi
+{
+	pthread_t	tid;	
+}				t_phi;
+
 
 int		get_time_ms(void);
 int		ft_atoi(const char *str);
