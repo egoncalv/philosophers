@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:22:51 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/01/12 23:40:15 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:30:23 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ typedef struct s_phi
 {
 	pthread_t	tid;	
 }				t_phi;
+
+typedef struct s_fork
+{
+	pthread_mutex_t	mutex;
+	int				id;
+}				t_fork;
+
 
 
 int		get_time_ms(void);

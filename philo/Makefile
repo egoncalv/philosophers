@@ -6,13 +6,13 @@
 #    By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 16:24:24 by egoncalv          #+#    #+#              #
-#    Updated: 2023/01/12 23:43:49 by egoncalv         ###   ########.fr        #
+#    Updated: 2023/01/13 14:46:42 by egoncalv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 
-THREAD = -pthread -g
+THREAD = -pthread
 
 NAME = philo
 
