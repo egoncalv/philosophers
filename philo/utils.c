@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:33:26 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/01/12 16:44:21 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:38:43 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	set_info(t_info *info, char	**argv)
 	info->t_die = ft_atoi(argv[2]);
 	info->t_eat = ft_atoi(argv[3]);
 	info->t_sleep = ft_atoi(argv[4]);
+	info->dead = 0;
 	if (argv[5])
 		info->x_eat = ft_atoi(argv[5]);
 }

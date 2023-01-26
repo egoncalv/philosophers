@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:33:40 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/01/21 17:14:02 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/26 08:59:13 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,44 @@ void	*choose_action(void *philosopher)
 	t_phi	*phi;
 
 	phi = (t_phi *)philosopher;
-	if (phi->id % 2)
-		usleep(10000);
-	eat_action(philosopher);
-	printf("%d\t", get_time_ms());
-	printf("%d is sleeping\n", phi->id);
-	usleep(1000000);
-	return (philosopher);
+	while (!phi->info->dead)
+	{
+		if (phi->id % 2)
+			usleep(15000);
+		eat_action(philosopher);
+		sleep_action(philosopher);
+		printf("%d\t%d is thinking\n", get_time_ms(), phi->id);
+		if ((get_time_ms() - phi->last_meal) > phi->info->t_die)
+			printf("%d\t%d is dead\n", get_time_ms(), phi->id);
+	}
+	return (NULL);
+}
+
+void	sleep_action(t_phi *phi)
+{
+	int	i;
+
+	i = 0;
+	printf("%d\t%d is sleeping\n", get_time_ms(), phi->id);
+	while (i < phi->info->t_sleep)
+	{
+		usleep(1000);
+		if ((get_time_ms() - phi->last_meal) > phi->info->t_die)
+			printf("%d\t%d is dead\n", get_time_ms(), phi->id); 
+		i++;
+	}
 }
 
 void	eat_action(t_phi *phi)
 {
 	pthread_mutex_lock(&phi->r_fork->mutex);
-	printf("%d\t", get_time_ms());
-	printf("%d has taken a fork\n", phi->id);
+	printf("%d\t%d has taken a fork\n", get_time_ms(), phi->id);
 	pthread_mutex_lock(&phi->l_fork->mutex);
-	printf("%d\t", get_time_ms());
-	printf("%d has taken a fork\n", phi->id);
-	printf("%d\t", get_time_ms());
-	printf("%d is eating\n", phi->id);
+	printf("%d\t%d has taken a fork\n", get_time_ms(), phi->id);
+	printf("%d\t%d is eating\n", get_time_ms(), phi->id);
 	usleep(phi->info->t_eat * 1000);
+	phi->last_meal = get_time_ms();
+	phi->x_ate++;
 	pthread_mutex_unlock(&phi->r_fork->mutex);
 	pthread_mutex_unlock(&phi->l_fork->mutex);
 }
@@ -69,6 +87,8 @@ t_phi	**create_phi(t_info *info)
 	{
 		philosophers[i] = malloc(sizeof(t_phi));
 		philosophers[i]->id = i;
+		philosophers[i]->last_meal = 0;
+		philosophers[i]->x_ate = 0;
 		philosophers[i]->info = info;
 		right_fork = create_fork();
 		philosophers[i]->r_fork = right_fork;

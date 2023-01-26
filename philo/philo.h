@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:22:51 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/01/21 17:14:13 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/21 17:45:25 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_info
 	int	t_eat;
 	int	t_sleep;
 	int	x_eat;
+	int	dead;
 }				t_info;
 
 typedef struct s_fork
@@ -42,6 +43,8 @@ typedef struct s_phi
 	t_info		*info;
 	pthread_t	tid;
 	int			id;
+	int			last_meal;
+	int			x_ate;
 	t_fork		*l_fork;
 	t_fork		*r_fork;
 }				t_phi;
@@ -52,5 +55,6 @@ int		is_nbr(char	*argv);
 int		check_args(int argc, char **argv);
 void	set_info(t_info *info, char	**argv);
 void	eat_action(t_phi *phi);
+void	sleep_action(t_phi *phi);
 
 #endif
