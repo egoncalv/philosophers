@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:33:40 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/01/26 09:31:20 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:42:36 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	*choose_action(void *philosopher)
 		sleep_action(philosopher);
 		printf("%d\t%d is thinking\n", get_time_ms(), phi->id);
 	}
+	printf("%d\t%d is dead\n", get_time_ms(), phi->id);
 	return (NULL);
 }
 
@@ -46,6 +47,8 @@ void	sleep_action(t_phi *phi)
 		usleep(1000);
 		time_sleeping++;
 	}
+	if (is_dead(phi))
+		printf("%d\t%d is dead\n", get_time_ms(), phi->id);
 }
 
 void	eat_action(t_phi *phi)

@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:22:51 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/01/21 17:45:25 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:31:46 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ int		check_args(int argc, char **argv);
 void	set_info(t_info *info, char	**argv);
 void	eat_action(t_phi *phi);
 void	sleep_action(t_phi *phi);
+int		is_dead(t_phi *phi);
 
 #endif
