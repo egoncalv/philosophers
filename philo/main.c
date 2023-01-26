@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:33:40 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/01/26 08:59:13 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:31:20 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,34 @@ void	*choose_action(void *philosopher)
 	t_phi	*phi;
 
 	phi = (t_phi *)philosopher;
-	while (!phi->info->dead)
+	while (!is_dead(phi))
 	{
 		if (phi->id % 2)
 			usleep(15000);
 		eat_action(philosopher);
 		sleep_action(philosopher);
 		printf("%d\t%d is thinking\n", get_time_ms(), phi->id);
-		if ((get_time_ms() - phi->last_meal) > phi->info->t_die)
-			printf("%d\t%d is dead\n", get_time_ms(), phi->id);
 	}
 	return (NULL);
 }
 
+int		is_dead(t_phi *phi)
+{
+	if ((get_time_ms() - phi->last_meal) > phi->info->t_die)
+		return (1);
+	return (0);
+}
+
 void	sleep_action(t_phi *phi)
 {
-	int	i;
+	int	time_sleeping;
 
-	i = 0;
+	time_sleeping = 0;
 	printf("%d\t%d is sleeping\n", get_time_ms(), phi->id);
-	while (i < phi->info->t_sleep)
+	while (!is_dead(phi) && time_sleeping < phi->info->t_sleep)
 	{
 		usleep(1000);
-		if ((get_time_ms() - phi->last_meal) > phi->info->t_die)
-			printf("%d\t%d is dead\n", get_time_ms(), phi->id); 
-		i++;
+		time_sleeping++;
 	}
 }
 
