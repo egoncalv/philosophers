@@ -18,6 +18,9 @@ NAME = philo
 
 SRC = 	main.c \
 		utils.c \
+		free.c \
+		create_all.c \
+		actions.c
 
 OBJ = $(SRC:.c=.o)
 

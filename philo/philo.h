@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:22:51 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/01/26 09:31:46 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:58:27 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_phi
 	t_fork		*r_fork;
 }				t_phi;
 
+void	free_all(t_info *info, t_phi **philosophers);
 int		get_time_ms(void);
 int		ft_atoi(const char *str);
 int		is_nbr(char	*argv);
@@ -57,5 +58,12 @@ void	set_info(t_info *info, char	**argv);
 void	eat_action(t_phi *phi);
 void	sleep_action(t_phi *phi);
 int		is_dead(t_phi *phi);
+t_phi	**create_phi(t_info *info);
+t_fork	*create_fork(void);
+void	thread_create_join(t_info *info, t_phi **phi);
+void	*choose_action(void *philosopher);
+int		is_dead(t_phi *phi);
+void	sleep_action(t_phi *phi);
+void	eat_action(t_phi *phi);
 
 #endif

@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: egoncalv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 16:33:40 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/01/26 10:42:36 by egoncalv         ###   ########.fr       */
+/*   Created: 2023/02/13 14:36:00 by egoncalv          #+#    #+#             */
+/*   Updated: 2023/02/13 14:36:01 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+void	free_all(t_info *info, t_phi **philosophers)
 {
-	t_info		info;
-	t_phi		**philosophers;
+	int	i;
 
-	get_time_ms();
-	if (check_args(argc, argv))
+	i = 0;
+	while (i < info->p_num)
 	{
-		set_info(&info, argv);
-		philosophers = create_phi(&info);
-		free_all(&info, philosophers);
+		free(philosophers[i]->r_fork);
+		free(philosophers[i]);
+		i++;
 	}
-	return (1);
+	free(philosophers);
 }
