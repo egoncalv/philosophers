@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:58 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/15 17:12:24 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:36:53 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,29 @@ void	eat_action(t_phi *phi)
 {
 	int	start_time;
 
-	pthread_mutex_lock(&phi->r_fork->mutex);
+	while (!is_dead(phi))
+	{
+			pthread_mutex_lock(&phi->r_fork->mutex);
+			if (!phi->r_fork->taken)
+			{
+				phi->r_fork->taken = 1;
+				pthread_mutex_unlock(&phi->r_fork->mutex);
+				break ;
+			}
+			pthread_mutex_unlock(&phi->r_fork->mutex);
+	}
 	print_action(phi, "has taken a fork");
-	pthread_mutex_lock(&phi->l_fork->mutex);
+	while (!is_dead(phi))
+	{
+			pthread_mutex_lock(&phi->l_fork->mutex);
+			if (!phi->l_fork->taken)
+			{
+				phi->l_fork->taken = 1;
+				pthread_mutex_unlock(&phi->l_fork->mutex);
+				break ;
+			}
+			pthread_mutex_unlock(&phi->l_fork->mutex);
+	}
 	print_action(phi, "has taken a fork");
 	print_action(phi, "is eating");
 	start_time = get_time_ms();
@@ -77,6 +97,10 @@ void	eat_action(t_phi *phi)
 		;
 	phi->last_meal = get_time_ms();
 	phi->x_ate++;
-	pthread_mutex_unlock(&phi->r_fork->mutex);
+	pthread_mutex_lock(&phi->l_fork->mutex);
+	phi->l_fork->taken = 0;
 	pthread_mutex_unlock(&phi->l_fork->mutex);
+	pthread_mutex_lock(&phi->r_fork->mutex);
+	phi->r_fork->taken = 0;
+	pthread_mutex_unlock(&phi->r_fork->mutex);
 }
