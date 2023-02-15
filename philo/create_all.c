@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:37:32 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/13 15:05:19 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:14:41 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_phi	**create_phi(t_info *info)
 
 	i = 0;
 	philosophers = malloc(sizeof(t_phi) * info->p_num + 1);
+	pthread_mutex_init(&info->print_lock, NULL);
 	left_fork = 0;
 	while (i < info->p_num)
 	{

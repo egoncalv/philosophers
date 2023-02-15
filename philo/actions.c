@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egoncalv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:58 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/13 14:48:00 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:12:24 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	print_action(t_phi *philosopher, char *action)
+{
+	if (philosopher->info->dead == 1)
+	{
+		pthread_mutex_lock(&philosopher->info->print_lock);
+		printf("%d\t%d %s\n", get_time_ms(), philosopher->id, action);
+	}
+	else
+		printf("%d\t%d %s\n", get_time_ms(), philosopher->id, action);
+}
 
 void	*choose_action(void *philosopher)
 {
@@ -23,42 +34,47 @@ void	*choose_action(void *philosopher)
 			usleep(15000);
 		eat_action(philosopher);
 		sleep_action(philosopher);
-		printf("%d\t%d is thinking\n", get_time_ms(), phi->id);
+		print_action(philosopher, "is thinking");
 	}
-	printf("%d\t%d is dead\n", get_time_ms(), phi->id);
 	return (NULL);
 }
 
 int	is_dead(t_phi *phi)
 {
 	if ((get_time_ms() - phi->last_meal) > phi->info->t_die)
+	{
+		phi->info->dead = 1;
+		print_action(phi, "died");
 		return (1);
+	}
 	return (0);
 }
 
 void	sleep_action(t_phi *phi)
 {
-	int	time_sleeping;
-
-	time_sleeping = 0;
-	printf("%d\t%d is sleeping\n", get_time_ms(), phi->id);
-	while (!is_dead(phi) && time_sleeping < phi->info->t_sleep)
+	int	start_time;
+		
+	print_action(phi, "is sleeping");
+	start_time = get_time_ms();
+	while (!is_dead(phi))
 	{
-		usleep(1000);
-		time_sleeping++;
+		if (get_time_ms() - start_time >= phi->info->t_sleep)
+			break ;
 	}
-	if (is_dead(phi))
-		printf("%d\t%d is dead\n", get_time_ms(), phi->id);
 }
 
 void	eat_action(t_phi *phi)
 {
+	int	start_time;
+
 	pthread_mutex_lock(&phi->r_fork->mutex);
-	printf("%d\t%d has taken a fork\n", get_time_ms(), phi->id);
+	print_action(phi, "has taken a fork");
 	pthread_mutex_lock(&phi->l_fork->mutex);
-	printf("%d\t%d has taken a fork\n", get_time_ms(), phi->id);
-	printf("%d\t%d is eating\n", get_time_ms(), phi->id);
-	usleep(phi->info->t_eat * 1000);
+	print_action(phi, "has taken a fork");
+	print_action(phi, "is eating");
+	start_time = get_time_ms();
+	while (get_time_ms() - start_time < phi->info->t_eat)
+		;
 	phi->last_meal = get_time_ms();
 	phi->x_ate++;
 	pthread_mutex_unlock(&phi->r_fork->mutex);

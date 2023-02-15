@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:22:51 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/13 14:58:27 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:11:08 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_info
 	int	t_sleep;
 	int	x_eat;
 	int	dead;
+	pthread_mutex_t	print_lock;
 }				t_info;
 
 typedef struct s_fork
@@ -40,13 +41,13 @@ typedef struct s_fork
 
 typedef struct s_phi
 {
-	t_info		*info;
-	pthread_t	tid;
-	int			id;
-	int			last_meal;
-	int			x_ate;
-	t_fork		*l_fork;
-	t_fork		*r_fork;
+	pthread_t		tid;
+	t_info			*info;
+	int				id;
+	int				last_meal;
+	int				x_ate;
+	t_fork			*l_fork;
+	t_fork			*r_fork;
 }				t_phi;
 
 void	free_all(t_info *info, t_phi **philosophers);
