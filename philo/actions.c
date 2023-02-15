@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:58 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/15 18:36:53 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:56:31 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	is_dead(t_phi *phi)
 	{
 		phi->info->dead = 1;
 		print_action(phi, "died");
-		return (1);
+		exit(0);
 	}
 	return (0);
 }
@@ -63,40 +63,39 @@ void	sleep_action(t_phi *phi)
 	}
 }
 
+void	take_fork(t_phi *phi, t_fork *fork)
+{
+	while (!is_dead(phi))
+	{
+			pthread_mutex_lock(&fork->mutex);
+			if (!fork->taken)
+			{
+				fork->taken = 1;
+				pthread_mutex_unlock(&fork->mutex);
+				break ;
+			}
+			pthread_mutex_unlock(&fork->mutex);
+	}
+	print_action(phi, "has taken a fork");
+}
+
 void	eat_action(t_phi *phi)
 {
 	int	start_time;
 
-	while (!is_dead(phi))
-	{
-			pthread_mutex_lock(&phi->r_fork->mutex);
-			if (!phi->r_fork->taken)
-			{
-				phi->r_fork->taken = 1;
-				pthread_mutex_unlock(&phi->r_fork->mutex);
-				break ;
-			}
-			pthread_mutex_unlock(&phi->r_fork->mutex);
-	}
-	print_action(phi, "has taken a fork");
-	while (!is_dead(phi))
-	{
-			pthread_mutex_lock(&phi->l_fork->mutex);
-			if (!phi->l_fork->taken)
-			{
-				phi->l_fork->taken = 1;
-				pthread_mutex_unlock(&phi->l_fork->mutex);
-				break ;
-			}
-			pthread_mutex_unlock(&phi->l_fork->mutex);
-	}
-	print_action(phi, "has taken a fork");
+	
+	take_fork(phi, phi->l_fork);
+	take_fork(phi, phi->r_fork);
 	print_action(phi, "is eating");
 	start_time = get_time_ms();
 	while (get_time_ms() - start_time < phi->info->t_eat)
 		;
 	phi->last_meal = get_time_ms();
 	phi->x_ate++;
+	if (phi->x_ate == phi->info->x_eat)
+		phi->info->completed++;
+	if (phi->info->completed == phi->info->p_num)
+		exit(0);
 	pthread_mutex_lock(&phi->l_fork->mutex);
 	phi->l_fork->taken = 0;
 	pthread_mutex_unlock(&phi->l_fork->mutex);

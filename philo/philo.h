@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:22:51 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/15 15:11:08 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:51:13 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_info
 	int	t_sleep;
 	int	x_eat;
 	int	dead;
+	int	completed;
 	pthread_mutex_t	print_lock;
 }				t_info;
 
@@ -66,5 +67,6 @@ void	*choose_action(void *philosopher);
 int		is_dead(t_phi *phi);
 void	sleep_action(t_phi *phi);
 void	eat_action(t_phi *phi);
+void	take_fork(t_phi *phi, t_fork *fork);
 
 #endif
