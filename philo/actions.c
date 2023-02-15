@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:58 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/15 18:56:31 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:01:23 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,16 @@ void	sleep_action(t_phi *phi)
 	}
 }
 
+void	drop_forks(t_phi *phi)
+{
+	pthread_mutex_lock(&phi->l_fork->mutex);
+	phi->l_fork->taken = 0;
+	pthread_mutex_unlock(&phi->l_fork->mutex);
+	pthread_mutex_lock(&phi->r_fork->mutex);
+	phi->r_fork->taken = 0;
+	pthread_mutex_unlock(&phi->r_fork->mutex);
+}
+
 void	take_fork(t_phi *phi, t_fork *fork)
 {
 	while (!is_dead(phi))
@@ -83,7 +93,6 @@ void	eat_action(t_phi *phi)
 {
 	int	start_time;
 
-	
 	take_fork(phi, phi->l_fork);
 	take_fork(phi, phi->r_fork);
 	print_action(phi, "is eating");
@@ -96,10 +105,5 @@ void	eat_action(t_phi *phi)
 		phi->info->completed++;
 	if (phi->info->completed == phi->info->p_num)
 		exit(0);
-	pthread_mutex_lock(&phi->l_fork->mutex);
-	phi->l_fork->taken = 0;
-	pthread_mutex_unlock(&phi->l_fork->mutex);
-	pthread_mutex_lock(&phi->r_fork->mutex);
-	phi->r_fork->taken = 0;
-	pthread_mutex_unlock(&phi->r_fork->mutex);
+	drop_forks(phi);
 }
