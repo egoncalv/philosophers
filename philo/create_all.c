@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:37:32 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/15 17:22:32 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:08:19 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_phi	**create_phi(t_info *info)
 	while (i < info->p_num)
 	{
 		philosophers[i] = malloc(sizeof(t_phi));
-		philosophers[i]->id = i;
+		philosophers[i]->id = i + 1;
 		philosophers[i]->last_meal = 0;
 		philosophers[i]->x_ate = 0;
 		philosophers[i]->info = info;
