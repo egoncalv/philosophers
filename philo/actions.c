@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:58 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/16 17:55:39 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:56:55 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*choose_action(void *philosopher)
 		if (phi->info->all_completed)
 		{
 			pthread_mutex_unlock(&phi->info->print_lock);
-			return(NULL);
+			return (NULL);
 		}
 		pthread_mutex_unlock(&phi->info->print_lock);
 	}
