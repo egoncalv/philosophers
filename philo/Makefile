@@ -6,7 +6,7 @@
 #    By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 16:24:24 by egoncalv          #+#    #+#              #
-#    Updated: 2023/01/14 18:50:24 by egoncalv         ###   ########.fr        #
+#    Updated: 2023/02/16 16:36:45 by egoncalv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,10 @@ NAME = philo
 
 SRC = 	main.c \
 		utils.c \
+		utils_1.c \
 		free.c \
 		create_all.c \
-		actions.c
+		actions.c \
 
 OBJ = $(SRC:.c=.o)
 

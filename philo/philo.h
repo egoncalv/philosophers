@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:22:51 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/16 15:02:57 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:37:26 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@
 
 typedef struct s_info
 {
-	int	p_num;
-	int	f_num;
-	int	t_die;
-	int	t_eat;
-	int	t_sleep;
-	int	x_eat;
-	int	dead;
-	int	completed;
+	int				p_num;
+	int				f_num;
+	int				t_die;
+	int				t_eat;
+	int				t_sleep;
+	int				x_eat;
+	int				dead;
+	int				completed;
 	pthread_mutex_t	print_lock;
 }				t_info;
 
