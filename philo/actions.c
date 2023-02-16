@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:58 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/16 15:02:08 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:29:32 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*choose_action(void *philosopher)
 	phi = (t_phi *)philosopher;
 	while (!is_dead(phi))
 	{
-		if (phi->id % 2)
+		if (!phi->id % 2)
 			usleep(15000);
 		eat_action(philosopher);
 		sleep_action(philosopher);
@@ -39,7 +39,7 @@ void	*choose_action(void *philosopher)
 int	is_dead(t_phi *phi)
 {
 	pthread_mutex_lock(&phi->info->print_lock);
-	if ((get_time_ms() - phi->last_meal) > phi->info->t_die)
+	if ((get_time_ms() - phi->last_meal) >= phi->info->t_die)
 	{
 		phi->info->dead = 1;
 		printf("%d\t%d died\n", get_time_ms(), phi->id);
@@ -57,7 +57,7 @@ void	sleep_action(t_phi *phi)
 	start_time = get_time_ms();
 	while (!is_dead(phi))
 	{
-		if (get_time_ms() - start_time >= phi->info->t_sleep)
+		if (get_time_ms() - start_time > phi->info->t_sleep)
 			break ;
 	}
 }
@@ -95,10 +95,10 @@ void	eat_action(t_phi *phi)
 	take_fork(phi, phi->l_fork);
 	take_fork(phi, phi->r_fork);
 	print_action(phi, "is eating");
+	phi->last_meal = get_time_ms();
 	start_time = get_time_ms();
 	while (get_time_ms() - start_time < phi->info->t_eat)
 		;
-	phi->last_meal = get_time_ms();
 	phi->x_ate++;
 	if (phi->x_ate == phi->info->x_eat)
 		phi->info->completed++;
