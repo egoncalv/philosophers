@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:58 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/16 16:58:31 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:55:39 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ void	*choose_action(void *philosopher)
 		eat_action(philosopher);
 		sleep_action(philosopher);
 		print_action(philosopher, "is thinking");
+		pthread_mutex_lock(&phi->info->print_lock);
+		if (phi->info->all_completed)
+		{
+			pthread_mutex_unlock(&phi->info->print_lock);
+			return(NULL);
+		}
+		pthread_mutex_unlock(&phi->info->print_lock);
 	}
 	return (NULL);
 }
@@ -31,11 +38,13 @@ void	*choose_action(void *philosopher)
 int	is_dead(t_phi *phi)
 {
 	pthread_mutex_lock(&phi->info->print_lock);
+	if (phi->info->dead == 1)
+		return (1);
 	if ((get_time_ms() - phi->last_meal) >= phi->info->t_die)
 	{
 		phi->info->dead = 1;
 		printf("%d\t%d died\n", get_time_ms(), phi->id);
-		exit(0);
+		return (1);
 	}
 	pthread_mutex_unlock(&phi->info->print_lock);
 	return (0);
@@ -54,7 +63,7 @@ void	sleep_action(t_phi *phi)
 	}
 }
 
-void	eat_action(t_phi *phi)
+int	eat_action(t_phi *phi)
 {
 	int	start_time;
 
@@ -68,9 +77,10 @@ void	eat_action(t_phi *phi)
 	pthread_mutex_lock(&phi->info->print_lock);
 	phi->x_ate++;
 	if (phi->x_ate == phi->info->x_eat)
-		phi->info->completed++;
-	if (phi->info->completed == phi->info->p_num)
-		exit(0);
+		phi->info->x_completed++;
+	if (phi->info->x_completed == phi->info->p_num)
+		phi->info->all_completed = 1;
 	pthread_mutex_unlock(&phi->info->print_lock);
 	drop_forks(phi);
+	return (0);
 }

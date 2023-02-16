@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:22:51 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/16 16:38:36 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:52:48 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct s_info
 	int				t_sleep;
 	int				x_eat;
 	int				dead;
-	int				completed;
+	int				x_completed;
+	int				all_completed;
 	pthread_mutex_t	print_lock;
 }				t_info;
 
@@ -57,7 +58,6 @@ int		ft_atoi(const char *str);
 int		is_nbr(char	*argv);
 int		check_args(int argc, char **argv);
 void	set_info(t_info *info, char	**argv);
-void	eat_action(t_phi *phi);
 void	sleep_action(t_phi *phi);
 int		is_dead(t_phi *phi);
 t_phi	**create_phi(t_info *info);
@@ -66,7 +66,7 @@ void	thread_create_join(t_info *info, t_phi **phi);
 void	*choose_action(void *philosopher);
 int		is_dead(t_phi *phi);
 void	sleep_action(t_phi *phi);
-void	eat_action(t_phi *phi);
+int		eat_action(t_phi *phi);
 void	take_fork(t_phi *phi, t_fork *fork);
 void	drop_forks(t_phi *phi);
 void	print_action(t_phi *philosopher, char *action);
