@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:58 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/16 16:37:34 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:58:31 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,12 @@ void	eat_action(t_phi *phi)
 	start_time = get_time_ms();
 	while (get_time_ms() - start_time < phi->info->t_eat)
 		;
+	pthread_mutex_lock(&phi->info->print_lock);
 	phi->x_ate++;
 	if (phi->x_ate == phi->info->x_eat)
 		phi->info->completed++;
 	if (phi->info->completed == phi->info->p_num)
 		exit(0);
+	pthread_mutex_unlock(&phi->info->print_lock);
 	drop_forks(phi);
 }

@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:33:26 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/15 18:51:27 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:52:18 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	check_args(int argc, char **argv)
 	}
 	while (i < argc)
 	{
-		if (!ft_atoi(argv[i]))
+		if (ft_atoi(argv[i]) <= 0)
 		{
 			printf("Arguments must be numeric and higher than 0\n");
 			return (0);
