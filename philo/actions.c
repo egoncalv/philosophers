@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:58 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/16 17:56:55 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:03:39 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*choose_action(void *philosopher)
 		sleep_action(philosopher);
 		print_action(philosopher, "is thinking");
 		pthread_mutex_lock(&phi->info->print_lock);
-		if (phi->info->all_completed)
+		if (phi->info->all_completed || phi->info->dead == 1)
 		{
 			pthread_mutex_unlock(&phi->info->print_lock);
 			return (NULL);
@@ -39,11 +39,15 @@ int	is_dead(t_phi *phi)
 {
 	pthread_mutex_lock(&phi->info->print_lock);
 	if (phi->info->dead == 1)
+	{
+		pthread_mutex_unlock(&phi->info->print_lock);	
 		return (1);
+	}
 	if ((get_time_ms() - phi->last_meal) >= phi->info->t_die)
 	{
 		phi->info->dead = 1;
 		printf("%d\t%d died\n", get_time_ms(), phi->id);
+		pthread_mutex_unlock(&phi->info->print_lock);
 		return (1);
 	}
 	pthread_mutex_unlock(&phi->info->print_lock);
