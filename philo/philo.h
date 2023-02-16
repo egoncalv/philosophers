@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:22:51 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/15 18:51:13 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:02:57 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ int		is_dead(t_phi *phi);
 void	sleep_action(t_phi *phi);
 void	eat_action(t_phi *phi);
 void	take_fork(t_phi *phi, t_fork *fork);
+void	drop_forks(t_phi *phi);
 
 #endif

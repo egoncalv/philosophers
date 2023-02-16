@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:58 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/15 19:01:23 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:02:08 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 void	print_action(t_phi *philosopher, char *action)
 {
-	if (philosopher->info->dead == 1)
-	{
-		pthread_mutex_lock(&philosopher->info->print_lock);
+	pthread_mutex_lock(&philosopher->info->print_lock);
+	if (philosopher->info->dead == 0)
 		printf("%d\t%d %s\n", get_time_ms(), philosopher->id, action);
-	}
-	else
-		printf("%d\t%d %s\n", get_time_ms(), philosopher->id, action);
+	pthread_mutex_unlock(&philosopher->info->print_lock);
 }
 
 void	*choose_action(void *philosopher)
@@ -41,12 +38,14 @@ void	*choose_action(void *philosopher)
 
 int	is_dead(t_phi *phi)
 {
+	pthread_mutex_lock(&phi->info->print_lock);
 	if ((get_time_ms() - phi->last_meal) > phi->info->t_die)
 	{
 		phi->info->dead = 1;
-		print_action(phi, "died");
+		printf("%d\t%d died\n", get_time_ms(), phi->id);
 		exit(0);
 	}
+	pthread_mutex_unlock(&phi->info->print_lock);
 	return (0);
 }
 
