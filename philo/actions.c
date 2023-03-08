@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:58 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/03/08 20:06:55 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:12:16 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*choose_action(void *philosopher)
 	{
 		eat_action(philosopher);
 		pthread_mutex_lock(&phi->info->print_lock);
-		if (phi->info->all_completed || phi->info->dead == 1)
+		if (phi->info->all_completed || phi->death->is_dead == 1)
 		{
 			pthread_mutex_unlock(&phi->info->print_lock);
 			return (NULL);

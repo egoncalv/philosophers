@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:22:51 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/03/08 19:24:24 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:09:20 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_info
 	int				t_eat;
 	int				t_sleep;
 	int				x_eat;
-	int				dead;
 	int				x_completed;
 	int				all_completed;
 	pthread_mutex_t	print_lock;
