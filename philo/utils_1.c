@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:35:26 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/16 16:36:25 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:26:54 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	take_fork(t_phi *phi, t_fork *fork)
 void	print_action(t_phi *philosopher, char *action)
 {
 	pthread_mutex_lock(&philosopher->info->print_lock);
-	if (philosopher->info->dead == 0)
-		printf("%d\t%d %s\n", get_time_ms(), philosopher->id, action);
+	if (!is_dead(philosopher))
+		printf("%lld\t%d %s\n", get_time_ms(), philosopher->id, action);
 	pthread_mutex_unlock(&philosopher->info->print_lock);
 }

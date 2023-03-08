@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:37:32 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/16 17:42:18 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:21:52 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 t_phi	**create_phi(t_info *info)
 {
 	t_phi		**philosophers;
+	t_death		death;
 	t_fork		*right_fork;
 	t_fork		*left_fork;
 	int			i;
@@ -27,6 +28,7 @@ t_phi	**create_phi(t_info *info)
 	while (i < info->p_num)
 	{
 		philosophers[i] = malloc(sizeof(t_phi));
+		philosophers[i]->death = &death;
 		philosophers[i]->id = i + 1;
 		philosophers[i]->last_meal = get_time_ms();
 		philosophers[i]->x_ate = 0;

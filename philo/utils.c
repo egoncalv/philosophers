@@ -6,13 +6,13 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:33:26 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/02/16 17:54:20 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:25:01 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	get_time_ms(void)
+long long	get_time_ms(void)
 {
 	static struct timeval	start_time;
 	struct timeval			current_time;
