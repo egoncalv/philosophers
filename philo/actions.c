@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:58 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/03/08 20:12:16 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:43:16 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*choose_action(void *philosopher)
 
 	phi = (t_phi *)philosopher;
 	if (phi->id % 2)
-	 	usleep(15000);
+		usleep(15000);
 	while (!is_dead(phi))
 	{
 		eat_action(philosopher);

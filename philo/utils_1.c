@@ -6,7 +6,7 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:35:26 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/03/08 20:15:20 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:35:16 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,14 @@ void	print_action(t_phi *philosopher, char *action)
 	if (!is_dead(philosopher))
 		printf("%lld\t%d %s\n", get_time_ms(), philosopher->id, action);
 	pthread_mutex_unlock(&philosopher->info->print_lock);
+}
+
+t_death	*init_death(void)
+{
+	t_death	*death_struct;
+
+	death_struct = malloc(sizeof(t_death));
+	pthread_mutex_init(&death_struct->d_lock, NULL);
+	death_struct->is_dead = 0;
+	return (death_struct);
 }

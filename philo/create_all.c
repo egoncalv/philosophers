@@ -6,31 +6,26 @@
 /*   By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:37:32 by egoncalv          #+#    #+#             */
-/*   Updated: 2023/03/08 20:14:27 by egoncalv         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:43:55 by egoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//Remember to specify if there is only one philosopher, create only one fork
 t_phi	**create_phi(t_info *info)
 {
 	t_phi		**philosophers;
-	t_death		death;
 	t_fork		*right_fork;
 	t_fork		*left_fork;
 	int			i;
 
 	i = 0;
 	philosophers = malloc(sizeof(t_phi) * info->p_num + 1);
-	pthread_mutex_init(&info->print_lock, NULL);
-	pthread_mutex_init(&death.d_lock, NULL);
-	death.is_dead = 0;
 	left_fork = 0;
 	while (i < info->p_num)
 	{
 		philosophers[i] = malloc(sizeof(t_phi));
-		philosophers[i]->death = &death;
+		philosophers[i]->death = info->death;
 		philosophers[i]->id = i + 1;
 		philosophers[i]->last_meal = get_time_ms();
 		philosophers[i]->x_ate = 0;

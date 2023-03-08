@@ -6,11 +6,11 @@
 #    By: egoncalv <egoncalv@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 16:24:24 by egoncalv          #+#    #+#              #
-#    Updated: 2023/02/16 16:36:45 by egoncalv         ###   ########.fr        #
+#    Updated: 2023/03/08 20:50:14 by egoncalv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra
 
 THREAD = -pthread
 
